@@ -1,25 +1,22 @@
 import unittest
-from Schemas import Schemas
+from Schema import Schema
 
 
-class TestSchema(unittest.TestCase):
-
+class MyTestCase(unittest.TestCase):
     def test_bool(self):
-        a = Schemas("l:bool")
-        self.assertEqual(a.get_value('l', "True"), True)
-        self.assertEqual(a.get_value('l', "False"), False)
-        self.assertEqual(a.get_value('l', None), False)
+        a = Schema("l:bool,p:int,d:str")
+        self.assertEqual(a.get_value("l", "true"), True)
+        self.assertEqual(a.get_value("l", None), False)
 
     def test_int(self):
-        a = Schemas("d:int")
-        self.assertEqual(a.get_value('d', "8080"), 8080)
-        self.assertEqual(a.get_value('d', "-1"), -1)
-        self.assertEqual(a.get_value('d', None), 8080)
+        a = Schema("l:bool,p:int,d:str")
+        self.assertEqual(a.get_value("p", "99"), 99)
+        self.assertEqual(a.get_value("p", "-9"), -9)
+        self.assertEqual(a.get_value("p", None), 8080)
 
     def test_str(self):
-        a = Schemas("l:str")
-        self.assertEqual(a.get_value('l', "Hello"), "Hello")
-
+        a = Schema("l:bool,p:int,d:str")
+        self.assertEqual(a.get_value("d", "usr/log"), "usr/log")
 
 if __name__ == '__main__':
     unittest.main()

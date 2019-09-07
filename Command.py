@@ -1,20 +1,19 @@
 class Command(object):
 
     def __init__(self, command: str):
-        # a = Command("-l true -d usr/local")
-        self.command = command
-        self.command_dict = {}
+        # '-l true -p 8080 -d /usr/logs'
         command_list = command.split(' ')
+        self.command_dict = {}
         for i in range(1, len(command_list)):
             name = command_list[i-1]
             value = command_list[i]
+            # key starts withs '-', and is alpha may not be ok
+            if value.startswith('-') and value[1].isalpha():
+                value = None
             if name.startswith('-'):
-                if value.startswith('-') and value[1].isalpha():
-                    value = None
+                # key should not starts withs '-'
                 self.command_dict[name[1:]] = value
-            else:
-                continue
 
     def get_value(self, name: str):
-        # return "true"
         return self.command_dict.get(name)
+
