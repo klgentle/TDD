@@ -5,8 +5,15 @@ from gilded_rose import *
 from functools import partial
 
 def print_from_file(file_name:str):
-    with open("print_file.txt", "r") as f:
+    with open(file_name, "r") as f:
         print(f.read())
+
+def assert_file_content_equal(file_name1:str, file_name2:str):
+    with open(file_name1, "r") as f1:
+        f1_content = f1.read()
+    with open(file_name2, "r") as f2:
+        f2_content = f2.read()
+    assert f1_content == f2_content
 
 if __name__ == "__main__":
     f = open('print_file.txt','w')
@@ -37,5 +44,6 @@ if __name__ == "__main__":
         GildedRose(items).update_quality()
     f.close()
 
-    print_from_file("print_file.txt")
-    #assert.EQUAL()
+    # print sys.out
+    #print_from_file("print_file.txt")
+    assert_file_content_equal("print_file.txt", "test_fixture_result.txt")
