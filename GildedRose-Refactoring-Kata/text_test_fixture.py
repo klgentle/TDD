@@ -2,9 +2,16 @@
 from __future__ import print_function
 
 from gilded_rose import *
+from functools import partial
+
+def print_from_file(file_name:str):
+    with open("print_file.txt", "r") as f:
+        print(f.read())
 
 if __name__ == "__main__":
-    #print ("OMGHAI!")
+    f = open('print_file.txt','w')
+    printf = partial(print, file=f)
+    printf ("OMGHAI!")
     items = [
              Item(name="+5 Dexterity Vest", sell_in=10, quality=20),
              Item(name="Aged Brie", sell_in=2, quality=0),
@@ -22,9 +29,13 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         days = int(sys.argv[1]) + 1
     for day in range(days):
-        print("-------- day %s --------" % day)
-        print("name, sellIn, quality")
+        printf("-------- day %s --------" % day)
+        printf("name, sellIn, quality")
         for item in items:
-            print(item)
-        print("")
+            printf(item)
+        printf("")
         GildedRose(items).update_quality()
+    f.close()
+
+    print_from_file("print_file.txt")
+    #assert.EQUAL()
