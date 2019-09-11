@@ -33,7 +33,7 @@ def BaseLineOutPut():
         for item in items:
             printf(item)
         printf("")
-        GildedRose(items).update_quality()
+        GildedRose(items).update_items_quality()
     f.close()
     return print_from_file("print_file.txt")
     #print(print_from_file("print_file.txt"))
