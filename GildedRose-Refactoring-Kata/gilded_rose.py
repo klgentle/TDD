@@ -30,23 +30,27 @@ class Item(object):
             self.quality += 1
 
     def update_quality(self):
-        self.update_sell_in_days()
-        if not self.aged_brie() and not self.is_backstage():
-            self.quality_decrease()
-        else:
+        if self.name != "Sulfuras, Hand of Ragnaros":
+            self.sell_in = self.sell_in - 1
+        if self.aged_brie():
             self.increase_quality()
-            if self.is_backstage():
-                if self.sell_in < 6:
-                    self.increase_quality()
+            return
+
+        if self.is_backstage():
+            self.increase_quality()
+            if self.sell_in < 6:
+                self.increase_quality()
+            return
+        self.quality_decrease()
 
         if self.sell_in < 0:
             self.update_after_expiration()
 
+    def sell_in_decrease(self):
+        self.sell_in = self.sell_in - 1
+
     def update_after_expiration(self):
         self.quality_decrease()
-
-    def update_sell_in_days(self):
-        self.sell_in = self.sell_in - 1
 
     def quality_decrease(self):
         if self.quality > 0:
