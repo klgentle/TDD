@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
-class GildedRose(object):
 
+class GildedRose(object):
     def __init__(self, items):
         self.items = items
 
@@ -9,7 +9,8 @@ class GildedRose(object):
         for item in self.items:
             item.update_quality()
 
-class Item:
+
+class Item(object):
     def __init__(self, name, sell_in, quality):
         self.name = name
         self.sell_in = sell_in
@@ -18,11 +19,8 @@ class Item:
     def __repr__(self):
         return "%s, %s, %s" % (self.name, self.sell_in, self.quality)
 
-    def Backstage_passes_item(self):
-        return self.name == 'Backstage passes to a TAFKAL80ETC concert'
-
-    def sulfuras_hand_of_ragnaros(self):
-        return self.name == "Sulfuras, Hand of Ragnaros"
+    def is_backstage(self):
+        return self.name == "Backstage passes to a TAFKAL80ETC concert"
 
     def aged_brie(self):
         return self.name == "Aged Brie"
@@ -30,36 +28,68 @@ class Item:
     def increase_quality(self):
         if self.quality < 50:
             self.quality += 1
-        return self.quality 
-
 
     def update_quality(self):
-            if not self.aged_brie() and not self.Backstage_passes_item():
-                if self.quality > 0:
-                    self.not_sulfuras_quality_decrease()
-            else:
-                if self.quality < 50:
-                    self.quality = self.quality + 1
-                    if self.Backstage_passes_item():
-                        if self.sell_in < 11:
-                            self.increase_quality()
-                        if self.sell_in < 6:
-                            self.increase_quality()
-
-            if not self.sulfuras_hand_of_ragnaros():
-                self.sell_in = self.sell_in - 1
-            if self.sell_in < 0:
-                if not self.aged_brie():
-                    if not self.Backstage_passes_item():
-                        if self.quality > 0:
-                            self.not_sulfuras_quality_decrease()
-                    else:
-                        self.quality = self.quality - self.quality
-                else:
+        self.update_sell_in_days()
+        if not self.aged_brie() and not self.is_backstage():
+            self.quality_decrease()
+        else:
+            self.increase_quality()
+            if self.is_backstage():
+                if self.sell_in < 6:
                     self.increase_quality()
 
-    def not_sulfuras_quality_decrease(self):
-        if not self.sulfuras_hand_of_ragnaros():
+        if self.sell_in < 0:
+            self.update_after_expiration()
+
+    def update_after_expiration(self):
+        self.quality_decrease()
+
+    def update_sell_in_days(self):
+        self.sell_in = self.sell_in - 1
+
+    def quality_decrease(self):
+        if self.quality > 0:
             self.quality = self.quality - 1
 
 
+class Sulfuras(Item):
+    def __init__(self, sell_in, quality):
+        self.name = "Sulfuras, Hand of Ragnaros"
+        self.sell_in = sell_in
+        self.quality = quality
+
+    def is_sulfuras(self) -> bool:
+        return True
+
+    def quality_decrease(self):
+        pass
+
+    def update_sell_in_days(self):
+        return
+
+
+class Backstage(Item):
+    def __init__(self, sell_in, quality):
+        self.name = "Backstage passes to a TAFKAL80ETC concert"
+        self.sell_in = sell_in
+        self.quality = quality
+
+    def is_backstage(self) -> bool:
+        return True
+
+    def update_after_expiration(self):
+        self.quality = self.quality - self.quality
+
+
+class AgedBrie(Item):
+    def __init__(self, sell_in, quality):
+        self.name = "Aged Brie"
+        self.sell_in = sell_in
+        self.quality = quality
+
+    def is_aged_brie(self) -> bool:
+        return True
+
+    def update_after_expiration(self):
+        self.increase_quality()
