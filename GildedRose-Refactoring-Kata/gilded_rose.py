@@ -30,8 +30,7 @@ class Item(object):
             self.quality += 1
 
     def update_quality(self):
-        if self.name != "Sulfuras, Hand of Ragnaros":
-            self.sell_in = self.sell_in - 1
+        self.sell_in_decrease()
         if self.aged_brie():
             self.increase_quality()
             return
@@ -67,9 +66,12 @@ class Sulfuras(Item):
         return True
 
     def quality_decrease(self):
-        pass
+        return
 
     def update_sell_in_days(self):
+        return
+
+    def update_quality(self):
         return
 
 
