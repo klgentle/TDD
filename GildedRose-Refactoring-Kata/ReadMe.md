@@ -1,22 +1,34 @@
 # 重构步骤
 ## 口决：旧的不变，新的创建，一步替换，旧的再见
+
 1. **构建安全网**
-    texttest_fixture
+    修改texttest_fixture
     a) 修改文件的名称，将if __main__下的内容整合成函数
     b) 保存原始打印内容到文件 text_fixture_result.txt
     c) 修改print,将打印内容打印到文件b，对比文件b与text_fixture_result.txt
     安全网保证, 每次打印结果与原始打印一样。
+    结果：建立安全网, 增加SafetyNet
 
 2. **初步清理** 
-    gilded_rose
+    修改gilded_rose
     a) 重复出现的常量定义函数
     b) 减少参数传递，将函数下放到底层的类中
+    结果：将属于item的函数移动到Item类，建立Item类文件
 
 3. **一边整理，一边加测试**
-    gilded_rose
+    修改Item.pass_one_day()
     a) 修正函数名称
+    b) 将函数下放到底层的类中
+    c) 将比较长的代码提炼函数
+    d) 整理函数逻辑，增加测试, 理顺逻辑。
+    结果：将pass_one_day主逻辑拆为三块, 使pass_one_day函数逻辑清晰
 
 4. **封装对象创建过程**
+    修改Item
+    a) 根据Item.name, 根据名称建立子类, 修改调用子类的地方
+
+
+
 5. **引入子类**
 6. **逻辑下推到子类**
 7. **最后的整理**     
