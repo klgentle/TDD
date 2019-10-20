@@ -5,7 +5,6 @@ def assert_file_content_equal(baselineoutput: str, file_name2: str):
     with open(file_name2, "r") as f2:
         f2_content = f2.read()
     assert baselineoutput == f2_content
-    # print(f"baselineoutput:{baselineoutput}")
 
 
 if __name__ == "__main__":
