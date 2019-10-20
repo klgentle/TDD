@@ -4,10 +4,10 @@ from __future__ import print_function
 from gilded_rose import *
 from functools import partial
 from Item import Item
-from Item import BackstageItem
-from Item import AgedBrieItem
-from Item import SulfurItem
-from Item import NormalItem
+from BackstageItem import BackstageItem
+from AgedBrieItem import AgedBrieItem
+from SulfurItem import SulfurItem
+from NormalItem import NormalItem
 
 import sys
 
