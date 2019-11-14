@@ -1,10 +1,19 @@
 # -*- coding: utf-8 -*-
 from __future__ import print_function
-
+import sys
 from gilded_rose import *
 
-if __name__ == "__main__":
-    #print ("OMGHAI!")
+filename = "print_file.txt"
+f = open(filename,"w")
+def printf(*args, file=f):
+    return print(*args,file=f)
+
+def print_file_content(filename=filename):
+    with open(filename,"r") as f:
+        print(f.read())
+
+def test_gilded_rose_update_qulity():
+    printf("OMGHAI!")
     items = [
              Item(name="+5 Dexterity Vest", sell_in=10, quality=20),
              Item(name="Aged Brie", sell_in=2, quality=0),
@@ -18,13 +27,18 @@ if __name__ == "__main__":
             ]
 
     days = 2
-    import sys
     if len(sys.argv) > 1:
         days = int(sys.argv[1]) + 1
     for day in range(days):
-        print("-------- day %s --------" % day)
-        print("name, sellIn, quality")
+        printf("-------- day %s --------" % day)
+        printf("name, sellIn, quality")
         for item in items:
-            print(item)
-        print("")
+            printf(item)
+        printf("")
         GildedRose(items).update_quality()
+
+
+if __name__ == "__main__":
+    test_gilded_rose_update_qulity()
+    # real print
+    #print_file_content(filename)
