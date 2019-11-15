@@ -7,7 +7,6 @@ from gilded_rose import *
 class TextTestFixture(object):
     def __init__(self):
         self.filename = "print_file.txt"
-        self.f = open(self.filename,"w")
         self.items = [
                  Item(name="+5 Dexterity Vest", sell_in=10, quality=20),
                  Item(name="Aged Brie", sell_in=2, quality=0),
@@ -20,24 +19,22 @@ class TextTestFixture(object):
                  Item(name="Conjured Mana Cake", sell_in=3, quality=6),  # <-- :O
                 ]
 
-    def printf(self, *args):
-        return print(*args,file=self.f)
-    
     def read_file_content(self):
-        with open(self.filename,"r") as f:
-            return f.read()
+        with open(self.filename,"r") as fr:
+            return fr.read() 
     
     def test_gilded_rose_update_qulity(self):
-        self.printf("OMGHAI!")
+        f = open(self.filename,"w")
+        print("OMGHAI!",file=f)
         days = 2
         if len(sys.argv) > 1:
             days = int(sys.argv[1]) + 1
         for day in range(days):
-            self.printf("-------- day %s --------" % day)
-            self.printf("name, sellIn, quality")
+            print("-------- day %s --------" % day,file=f)
+            print("name, sellIn, quality",file=f)
             for item in self.items:
-                self.printf(item)
-            self.printf("")
+                print(item,file=f)
+            print("",file=f)
             GildedRose(self.items).update_quality()
 
 
@@ -45,4 +42,4 @@ if __name__ == "__main__":
     obj = TextTestFixture()
     obj.test_gilded_rose_update_qulity()
     # real print
-    #print(read_file_content())
+    #print(obj.read_file_content())
