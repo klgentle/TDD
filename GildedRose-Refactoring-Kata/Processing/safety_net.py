@@ -7,7 +7,7 @@ from pprint import pprint
 def test_result():
     # 运行测试
     obj = TextTestFixture()
-    obj.test_gilded_rose_update_qulity()
+    obj.test_gilded_rose_update_quality()
 
     # compare result
     with open("original_result.txt", "r") as orig_result:
