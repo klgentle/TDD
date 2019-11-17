@@ -9,3 +9,9 @@ class AgedBrieItem(Item):
 
     def _is_aged_brie(self):
         return True
+
+    def _update_quality(self):
+        self._quality_increase()
+
+    def _update_quality_after_expiration(self):
+        self._quality_increase()

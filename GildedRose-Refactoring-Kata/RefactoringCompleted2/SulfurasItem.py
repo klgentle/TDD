@@ -9,3 +9,12 @@ class SulfurasItem(Item):
 
     def _is_sulfuras(self):
         return True
+
+    def sell_in_decrease(self):
+        return
+
+    def _update_quality(self):
+        return
+
+    def _update_quality_after_expiration(self):
+        return
